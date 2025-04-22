@@ -40,6 +40,7 @@ const Index = () => {
               </p>
               {/* ElevenLabs widget injected here */}
               <div id="elevenlabs-convai-widget" className="mb-6">
+                {/* @ts-ignore - The custom element is declared in elevenlabs.d.ts but TypeScript might still show warnings */}
                 <elevenlabs-convai agent-id="z5ol57Y37jMdg2ac6RQg"></elevenlabs-convai>
               </div>
             </div>
@@ -113,4 +114,3 @@ const Index = () => {
 };
 
 export default Index;
-
