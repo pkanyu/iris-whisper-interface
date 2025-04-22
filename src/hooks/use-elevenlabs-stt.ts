@@ -1,6 +1,12 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
+// Define the SpeechRecognition interface that's missing in the global type definitions
+interface Window {
+  SpeechRecognition: any;
+  webkitSpeechRecognition: any;
+}
+
 // Interface for the hook return values
 interface UseElevenLabsSTTReturn {
   isListening: boolean;
@@ -18,7 +24,8 @@ export function useElevenLabsSTT(): UseElevenLabsSTTReturn {
   const [error, setError] = useState<string | null>(null);
 
   // Browser SpeechRecognition setup
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const SpeechRecognition = (window as unknown as Window).SpeechRecognition || 
+                            (window as unknown as Window).webkitSpeechRecognition;
   let recognition: any = null;
   
   try {

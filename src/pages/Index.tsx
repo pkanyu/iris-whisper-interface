@@ -11,11 +11,16 @@ import { Label } from '@/components/ui/label';
 const Index = () => {
   const [webhookUrl, setWebhookUrl] = useState<string>('');
   const [showSetup, setShowSetup] = useState<boolean>(true);
+  const [useConversationalAI, setUseConversationalAI] = useState<boolean>(false);
 
   const handleSetupSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // In a real app, you'd validate the URL here
     setShowSetup(false);
+  };
+
+  const toggleConversationalAI = () => {
+    setUseConversationalAI(!useConversationalAI);
   };
 
   return (
@@ -32,7 +37,42 @@ const Index = () => {
       
       <main className="flex-1 flex flex-col">
         {!showSetup && webhookUrl ? (
-          <ChatContainer webhookUrl={webhookUrl} />
+          <>
+            {useConversationalAI ? (
+              <div className="flex-1 flex items-center justify-center">
+                <div className="glass-card p-8 text-center max-w-md mx-auto">
+                  <h2 className="text-xl font-light mb-4 tracking-wide">
+                    ElevenLabs Conversational AI
+                  </h2>
+                  <p className="mb-6 font-light">
+                    Interact with IRIS using ElevenLabs Conversational AI.
+                  </p>
+                  {/* This is where the ElevenLabs widget will be rendered */}
+                  <div id="elevenlabs-convai-widget" className="mb-6">
+                    {/* Widget will be injected here */}
+                  </div>
+                  <Button 
+                    onClick={toggleConversationalAI}
+                    className="w-full bg-white/30 hover:bg-white/40 backdrop-blur-md text-foreground border border-white/30"
+                  >
+                    Switch to Standard Chat
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <ChatContainer webhookUrl={webhookUrl} />
+                <div className="py-4 px-6 text-center">
+                  <Button 
+                    onClick={toggleConversationalAI}
+                    className="bg-white/30 hover:bg-white/40 backdrop-blur-md text-foreground border border-white/30"
+                  >
+                    Try ElevenLabs Conversational AI
+                  </Button>
+                </div>
+              </>
+            )}
+          </>
         ) : (
           <div className="flex-1 flex items-center justify-center px-4">
             <div className="glass-card p-8 w-full max-w-md mx-auto">
