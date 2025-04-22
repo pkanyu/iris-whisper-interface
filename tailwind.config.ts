@@ -101,6 +101,10 @@ export default {
 				'typing': {
 					from: { width: '0' },
 					to: { width: '100%' }
+				},
+				'spin-slow': {
+					from: { transform: 'rotate(0deg)' },
+					to: { transform: 'rotate(360deg)' }
 				}
 			},
 			animation: {
@@ -108,7 +112,8 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
 				'fade-in': 'fade-in 0.5s ease-out',
-				'typing': 'typing 1.5s steps(30, end)'
+				'typing': 'typing 1.5s steps(30, end)',
+				'spin-slow': 'spin-slow 10s linear infinite'
 			}
 		}
 	},
