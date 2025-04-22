@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import Logo from '@/components/Logo';
-import ChatContainer from '@/components/ChatContainer';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -11,16 +10,10 @@ import { Label } from '@/components/ui/label';
 const Index = () => {
   const [webhookUrl, setWebhookUrl] = useState<string>('');
   const [showSetup, setShowSetup] = useState<boolean>(true);
-  const [useConversationalAI, setUseConversationalAI] = useState<boolean>(false);
 
   const handleSetupSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you'd validate the URL here
     setShowSetup(false);
-  };
-
-  const toggleConversationalAI = () => {
-    setUseConversationalAI(!useConversationalAI);
   };
 
   return (
@@ -37,42 +30,20 @@ const Index = () => {
       
       <main className="flex-1 flex flex-col">
         {!showSetup && webhookUrl ? (
-          <>
-            {useConversationalAI ? (
-              <div className="flex-1 flex items-center justify-center">
-                <div className="glass-card p-8 text-center max-w-md mx-auto">
-                  <h2 className="text-xl font-light mb-4 tracking-wide">
-                    ElevenLabs Conversational AI
-                  </h2>
-                  <p className="mb-6 font-light">
-                    Interact with IRIS using ElevenLabs Conversational AI.
-                  </p>
-                  {/* This is where the ElevenLabs widget will be rendered */}
-                  <div id="elevenlabs-convai-widget" className="mb-6">
-                    {/* Widget will be injected here */}
-                  </div>
-                  <Button 
-                    onClick={toggleConversationalAI}
-                    className="w-full bg-white/30 hover:bg-white/40 backdrop-blur-md text-foreground border border-white/30"
-                  >
-                    Switch to Standard Chat
-                  </Button>
-                </div>
+          <div className="flex-1 flex items-center justify-center">
+            <div className="glass-card p-8 text-center max-w-md mx-auto w-full">
+              <h2 className="text-xl font-light mb-4 tracking-wide">
+                ElevenLabs Conversational AI
+              </h2>
+              <p className="mb-6 font-light">
+                Interact with IRIS using ElevenLabs Conversational AI.
+              </p>
+              {/* ElevenLabs widget injected here */}
+              <div id="elevenlabs-convai-widget" className="mb-6">
+                <elevenlabs-convai agent-id="z5ol57Y37jMdg2ac6RQg"></elevenlabs-convai>
               </div>
-            ) : (
-              <>
-                <ChatContainer webhookUrl={webhookUrl} />
-                <div className="py-4 px-6 text-center">
-                  <Button 
-                    onClick={toggleConversationalAI}
-                    className="bg-white/30 hover:bg-white/40 backdrop-blur-md text-foreground border border-white/30"
-                  >
-                    Try ElevenLabs Conversational AI
-                  </Button>
-                </div>
-              </>
-            )}
-          </>
+            </div>
+          </div>
         ) : (
           <div className="flex-1 flex items-center justify-center px-4">
             <div className="glass-card p-8 w-full max-w-md mx-auto">
@@ -99,7 +70,7 @@ const Index = () => {
             <DialogHeader>
               <DialogTitle className="text-xl font-light tracking-wide">Set up your IRIS connection</DialogTitle>
               <DialogDescription className="text-foreground/80 font-light tracking-wide">
-                Enter the webhook URL where IRIS will process your messages.
+                Enter any webhook URL to proceed and access the ElevenLabs conversational AI.
               </DialogDescription>
             </DialogHeader>
             
@@ -116,7 +87,7 @@ const Index = () => {
                 />
               </div>
               <p className="mt-2 text-xs text-foreground/70">
-                This is where your user messages will be sent for processing.
+                This will let you continue to the IRIS experience.
               </p>
             </div>
             
@@ -125,7 +96,7 @@ const Index = () => {
                 type="submit" 
                 className="bg-white/30 hover:bg-white/40 backdrop-blur-md text-foreground border border-white/30"
               >
-                Connect IRIS
+                Continue
               </Button>
             </DialogFooter>
           </form>
@@ -142,3 +113,4 @@ const Index = () => {
 };
 
 export default Index;
+
